@@ -1,0 +1,171 @@
+﻿1.百度脑图
+http://naotu.baidu.com/file/fe4d0ed0ce3b8dfd9b09263c0f7abf01?token=fdd400eba319d8b7
+2.问题汇总
+http://www.imooc.com/article/21449
+3.spring security的demo
+https://gitee.com/jiminzheng/springsecurity_demo
+4.shiro的demo
+https://gitee.com/jiminzheng/shiro_demo
+
+数据权限通用解决方案
+https://www.imooc.com/article/21376
+
+改造电商交易后台权限管理过程：https://www.imooc.com/article/20741
+
+Springcloud学习——Zuul服务网关及路由权限控制
+https://blog.csdn.net/qq_19301269/article/details/78920821
+
+开源项目:
+https://gitee.com/y_project/RuoYi
+基于SpringBoot2.0的权限管理系统 易读易懂、界面简洁美观。 核心技术采用Spring、MyBatis、Shiro没有任何其它重度依赖。直接运行即可用 http://www.ruoyi.club
+
+人人开源
+https://gitee.com/renrenio/renren-security
+renren-security | 轻量级权限管理系统
+采用Spring、MyBatis、Shiro框架，开发的一套权限系统，极低门槛，拿来即用
+支持分布式部署、Quartz分布式集群调度、部门管理、数据权限、云存储等功能
+https://gitee.com/babaio/renren-fastplus
+
+Cloud-Admin
+https://gitee.com/minull/ace-security
+Cloud-Admin是国内首个基于Spring Cloud微服务化开发平台，具有统一授权、认证后台管理系统，其中包含具备用户管理、资源权限管理、网关API管理等多个模块，支持多业务系统并行开发，可以作为后端服务的开发脚手架。代码简洁，架构清晰，适合学习和直接项目中使用。核心技术采用Spring Boot2以及Spring Cloud Gateway相关核心组件，前端采用vue-element-admin组件。 http://www.bbcto.cn/
+https://gitee.com/minull/ace-security/wikis/%E3%80%90%E6%96%B0%E3%80%91Cloud-Admin%E5%90%AF%E5%8A%A8%E6%8C%87%E5%8D%97?sort_id=368780
+
+https://gitee.com/geek_qi/ace-gate/tree/master
+AG-Gate 是一个基于spring cloud的用户资源授权、api管理授权的网关系统，以jwt交互的鉴权token来实施，支持基于Eureka注册中心下的服务鉴权和拦截，同时扩展Eureka下服务失效的通知扩展。
+Spring Cloud下微服务权限方案
+  https://blog.csdn.net/u011282930/article/details/80131534
+
+
+
+
+ouath2单点登录
+	OAuth 2.0是一种设计思路，不是一个框架
+	1.OAuth2中包含四个角色：
+		资源拥有者(Resource Owner)
+		资源服务器(Resource Server)
+		授权服务器(Authorization Server)
+		客户端(Client)
+	2.授权模式
+		2.1>授权码（认证码）模式 （Authorization code)
+			常用:获取code、code换取access_token
+		2.2>简化（隐形）模式 (Implicit Grant)
+			直接换取access_token，基本不用
+		2.3>用户名密码模式 (Resource Owner Password Credential)
+			客户端像用户索取账号密码，然后客户端向服务端索取授权，基本不用
+		2.4>客户端模式 (Client Credential)
+			客户端以自己的名义要求"服务提供商"提供服务；场景：提供接口服务
+		https://beginor.github.io/2015/02/06/obtaining-authorization-from-oauth-server.html	
+	3.授权码模式流程
+		核心:获取code、获取access_token、获取资源
+		3.1>先注册应用，(标识第三方的身份)每个系统都有
+			client_id 应用id
+			client_secret 应用secret		
+		3.2>注册一个用户
+		3.3>请求授权码code（一次性,换取的code其实已经标志了是哪一个用户）
+			http://localhost:8080/oauth2-server/authorize?client_id=client_id&client_secret=client_secret&response_type=code&redirect_uri=redirect_uri
+
+			调用qq返回
+			https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101119675&redirect_uri=http://passport.jikexueyuan.com/connect/success&state=dac304608e2a328192c62b1790e9f418&scope=get_user_info
+
+			参数说明
+			client_id 应用id
+			client_secret 应用secret（secret肯定是不能放在url上面的，一般都会把secret当成一个秘钥对传输的参数做一个电子签名，然后到服务端验证这个签名是否合法）
+			response_type 返回授权码的标识
+			redirect_uri 回调地址
+		3.4>第三方应用根据授权码code和第三方身份、密钥信息为参数,调用服务端的提供的API进行授权访问
+			服务端跳转到登录页面（安全：可以做redirect_uri的域名认证，像微信登录，注册应用时保存域名），用户输入账号密码登录（或者已经登录的用户做授权操作）
+		3.5>授权成功,服务端返回授权码，重定向到redirect_uri
+			redirect_uri?code=63910432da9186b22b1ad888d55ae8ae
+			授权码(token),包含可以访问的哪些资源、给哪个第三方使用
+		3.6>重定向到接收令牌的接口
+			以POST方式提交到http://localhost:8080/oauth2-server/accessToken,最终返回accessToken
+			client_id 应用id
+			client_secret 应用secret
+			grant_type 用于传递授权码的参数名authorization_code
+			code 用户登录授权后的授权码
+			redirect_uri 回调地址
+
+			服务端最终返回如下数据
+			{"expires_in":3600,"access_token":"access_token"}
+		3.7>access_token过期校验
+		3.8>access_token刷新接口
+		3.9>第三方应用以access_token凭证调用服务商提供的接口获取资源
+		获取用户信息，见过很多网站，第三方登录后还要注册一次，因为他们拿到了access_token后并没有去获取用户信息，或者获取不到需要的信息，比如说手机、邮箱等信息
+			获取用户信息，服务端一般会返回一个唯一标志UUID、用户名、用户头像等用户信息(微信返回wx_opentId)，然后子系统录入这些信息，并把该用户信息和access_token做绑定，子系统也可以对该用户做授权等操作
+	4.QQ登录OAuth2.0总体处理流程
+		QQ登录OAuth2.0总体处理流程如下：
+		Step1：接入申请，获取appid和apikey；
+			appid：应用的唯一标识。在OAuth2.0认证过程中，appid的值即为oauth_consumer_key的值。
+			appkey：appid对应的密钥，访问用户资源时用来验证应用的合法性。在OAuth2.0认证过程中，appkey的值即为oauth_consumer_secret的值。 
+		Step2：放置QQ登录按钮；
+		Step3：通过用户登录验证和授权，获取Access Token；
+			https://graph.qq.com/oauth2.0/authorize
+			请求参数：
+			response_type	必须	 授权类型，此值固定为“token”。
+			client_id	    必须	 申请QQ登录成功后，分配给应用的appid。
+			redirect_uri	必须	 成功授权后的回调地址。
+			scope	        可选	 请求用户授权时向用户显示的可进行授权的列表。
+				可填写的值是API列表中列出的接口，以及一些动作型的授权（目前仅有：do_like），如果要填写多个接口名称，请用逗号隔开。
+				例如：scope=get_user_info,list_album,upload_pic,do_like
+				不传则默认请求对接口get_user_info进行授权。
+				建议控制授权项的数量，只传入必要的接口名称，因为授权项越多，用户越可能拒绝进行任何授权。
+
+			state			可选	  client端的状态值。用于第三方应用防止CSRF攻击，成功授权后回调时会原样带回 
+		Step4：通过Access Token获取用户的OpenID；
+			移动应用：https://graph.qq.com/oauth2.0/me
+			WAP网站： https://graph.z.qq.com/moc2/me
+			请求参数: access_token	必须	 在Step1中获取到的access token
+		Step5：调用OpenAPI，来请求访问或修改用户授权的资源。
+			oauth2通用参数:
+			access_token	可通过使用Implicit Grant方式获取Access Token来获取。
+							access_token有3个月有效期。
+			oauth_consumer_key	申请QQ登录成功后，分配给应用的appid
+			openid	用户的ID，与QQ号码一一对应。
+					可通过调用https://graph.qq.com/oauth2.0/me?access_token=YOUR_ACCESS_TOKEN 来获取
+
+				
+
+	https://blog.csdn.net/weixin_41279060/article/details/78860080
+
+JWT认证协议
+	授权服务器将用户信息和授权范围序列化后放入一个JSON字符串，然后使用Base64进行编码，最终在授权服务器用私钥对这个字符串进行签名，得到一个JSON Web Token
+
+	组成:
+	1>.Header头部:token类型和加密算法
+		{	
+		   "alg":"HS256" 
+		   "typ":"JWT"
+		}
+	2>.Payload负载:存放信息，包含iss（签发者）、exp（过期时间）、sub（面向的用户）、aud（接收方）、iat（签发时间）
+		{
+			"iss": "lion1ou JWT",
+			"iat": 1441593502,
+			"exp": 1441594722,
+			"aud": "www.example.com",
+			"sub": "lion1ou@163.com"
+		}
+	3>.Signature 签名			
+		作用:保证JWT没有被篡改过
+		Signature 需要使用编码后的 header 和 payload 以及我们提供的一个密钥，然后使用 header 中指定的签名算法（HS256）进行签名
+	注意:
+		token传输占用带宽:http2对头部进行压缩
+		信息暴露:base64是可逆的，保存非敏感的信息,如密码
+	
+RBAC模型
+	Role-BasedAccess Control，(角色级别权限)基于角色的访问控制，就是用户通过角色与权限进行关联。简单地说，一个用户拥有若干角色，每一个角色拥有若干权限
+	RBAC认为权限授权实际上是Who、What、How的问题
+	https://blog.csdn.net/zwk626542417/article/details/46726491
+
+需求功能点:
+	角色级别权限	
+	功能权限和数据权限
+	操作简单
+
+	权限增删改查
+	角色增删改查,角色授权
+
+
+
+ mysql安装
+ https://blog.csdn.net/wz1226864411/article/details/76146180 
