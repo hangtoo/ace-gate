@@ -68,6 +68,12 @@ public class GroupController extends BaseController<GroupBiz, Group> {
         return new ObjectRestResponse<GroupUsers>().rel(true).result(baseBiz.getGroupUsers(id));
     }
 
+    /**
+     * 修改菜单权限
+     * @param id
+     * @param menuTrees
+     * @return
+     */
     @RequestMapping(value = "/{id}/authority/menu", method = RequestMethod.POST)
     @ResponseBody
     public ObjectRestResponse modifiyMenuAuthority(@PathVariable  int id, String menuTrees){
@@ -76,12 +82,24 @@ public class GroupController extends BaseController<GroupBiz, Group> {
         return new ObjectRestResponse().rel(true);
     }
 
+    /**
+     * 查询菜单权限
+     * @param id 组id,group_id
+     * @return
+     */
     @RequestMapping(value = "/{id}/authority/menu", method = RequestMethod.GET)
     @ResponseBody
     public ObjectRestResponse<List<AuthorityMenuTree>> getMenuAuthority(@PathVariable  int id){
         return new ObjectRestResponse().result(baseBiz.getAuthorityMenu(id)).rel(true);
     }
 
+    /**
+     * 新增按钮
+     * @param id
+     * @param menuId
+     * @param elementId
+     * @return
+     */
     @RequestMapping(value = "/{id}/authority/element/add", method = RequestMethod.POST)
     @ResponseBody
     public ObjectRestResponse addElementAuthority(@PathVariable  int id,int menuId, int elementId){

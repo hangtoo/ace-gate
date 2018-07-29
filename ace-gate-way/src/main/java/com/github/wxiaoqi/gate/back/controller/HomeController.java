@@ -1,6 +1,5 @@
 package com.github.wxiaoqi.gate.back.controller;
 
-import com.github.wxiaoqi.gate.back.secruity.SecurityUser;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Map;
 
 /**
- * ${DESCRIPTION}
+ * 首页
  *
  * @author wanghaobin
  * @create 2017-06-06 13:34
@@ -24,6 +23,11 @@ public class HomeController {
                 .getPrincipal());
         return "index";
     }
+
+    /**
+     * 功能列表
+     * @return
+     */
     @RequestMapping(value = "about",method = RequestMethod.GET)
     public String about(){
         return "about";

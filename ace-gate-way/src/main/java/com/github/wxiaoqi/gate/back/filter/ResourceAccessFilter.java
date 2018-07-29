@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
+ * 校验资源
+ * Resources权限下有资源，资源的来源有：Menu（菜单）、Button（动作权限）、页面元素（按钮、tab等）、数据权限等
  * Created by ace on 2017/7/8.
  */
 @WebFilter(filterName="resourceAccessFilter",urlPatterns="/*")

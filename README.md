@@ -17,6 +17,15 @@ AG-Gate 是一个基于spring cloud的用户资源授权、api管理授权的网
 - 服务状态监控与提醒（待完善）
 - 服务追踪（待完善）
 
+# 项目模块
+- ace-gate-agent
+- ace-gate-common 工具类
+- ace-gate-demo   内部鉴权
+    ace-gate-demo-client
+    ace-gate-demo-provider
+- ace-gate-eureka 注册中心
+- ace-gate-way    网关管理,服务鉴权,校验用户资源合法性
+
 
 # 快速运行
 ## 部署指南
@@ -179,8 +188,19 @@ http://[ace-gate-way部署服务器]:[配置端口]/api/authen/auth
 access-token:ApiGateToken eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnYXRlLWRlbW8tY2xpZW50IiwiY3JlYXRlZCI6MTQ5OTk0NzAzNzE1NCwiZXhwIjoxNDk5OTU0MjM3fQ.eL3Ucd2Oh166PDcmHLsKK2A0uJZ6QPxLqRac6enQacBEgQwc2I0qJtkui1V0WjB70VWHpRbHgmzps_dM9jKg0A
 ```
 ## 外部访问IP黑白名单方式
-带实现
+待实现
 
+## bug和优化
+ 1. bug:角色管理中无法加入用户
+ 2. 实现用户修改密码和上传头像(FastDFS)
+ 3. bug:前台锁屏失败,提示内容直接成文本
+ 4. SpringBoot到2.0
+ 5. 实现eureka实现高可用,3个应用实例
+ 6. 优化前台的按钮风格和前台错误页面跳转(如未授权)
+ 7. 实现链路跟踪(springCloud sleuth+MQ+ElasticSearch)
+ 8. 实现数据权限动态   
+ 9. 定义ace-gate-parent,统一管理jar包版本
+    
 # 欢迎交流
 ![img](http://ofsc32t59.bkt.clouddn.com/17-06-16/1497595760484.jpg)
 

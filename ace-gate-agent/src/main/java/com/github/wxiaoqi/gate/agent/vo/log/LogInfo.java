@@ -4,25 +4,42 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * ${DESCRIPTION}
+ * 日志
  *
  * @author wanghaobin
  * @create 2017-07-01 11:18
  */
 public class LogInfo implements Serializable{
+    /**
+     * 菜单
+     */
     private String menu;
-
+    /**
+     * 操作
+     */
     private String opt;
-
+    /**
+     * 资源路径
+     */
     private String uri;
-
-
+    /**
+     * 创建时间
+     */
     private Date crtTime;
 
+    /**
+     * 操作人ID
+     */
     private String crtUser;
 
+    /**
+     * 操作人
+     */
     private String crtName;
 
+    /**
+     * 操作主机
+     */
     private String crtHost;
 
     public LogInfo(String menu, String option, String uri,  Date crtTime, String crtUser, String crtName, String crtHost) {

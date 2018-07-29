@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * ${DESCRIPTION}
+ * 校验api访问合法性
  *
  * @author wanghaobin
  * @create 2017-06-23 8:25
@@ -36,8 +36,14 @@ public class ApiAccessFilter extends ZuulFilter {
     private AuthBiz authService;
     @Autowired
     private GateService gateService;
+    /**
+     * token头
+     */
     @Value("${gate.api.header}")
     private String tokenHead;
+    /**
+     * 前缀
+     */
     @Value("${zuul.prefix}")
     private String prefix;
     public ApiAccessFilter() {
@@ -65,7 +71,9 @@ public class ApiAccessFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpSession httpSession = ctx.getRequest().getSession();
         HttpServletRequest request = ctx.getRequest();
+        // 请求地址
         String requestUri = request.getRequestURI();
+        // 请求方式
         final String method = request.getMethod();
         log.debug("IP：{}，访问资源：{}，请求方式：{}", ClientUtil.getClientIp(request),requestUri,method);
         requestUri = requestUri.substring(prefix.length()+1);
@@ -84,6 +92,7 @@ public class ApiAccessFilter extends ZuulFilter {
         });
         if(result.size()>0){
             String token = request.getHeader(tokenHead);
+            // 校验是否授权
             if(!authService.validate(token,finalRequestUri+":"+method)){
                 setFailedRequest("Unauthorized",401);
             }

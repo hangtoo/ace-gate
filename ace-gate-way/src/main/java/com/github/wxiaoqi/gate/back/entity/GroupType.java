@@ -3,6 +3,9 @@ package com.github.wxiaoqi.gate.back.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * 角色类型管理
+ */
 @Table(name = "base_group_type")
 public class GroupType {
     @Id
@@ -10,6 +13,9 @@ public class GroupType {
 
     private String code;
 
+    /**
+     * 角色类型/部门类型/公司类型
+     */
     private String name;
 
     private String description;

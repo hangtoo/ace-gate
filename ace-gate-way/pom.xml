@@ -12,6 +12,9 @@
     <artifactId>ace-gate-way</artifactId>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
         <hystrix.version>1.5.12</hystrix.version>
         <!-- MyBatis Generator -->
         <!-- Java接口和实体类 -->
@@ -26,6 +29,15 @@
         <mybatis.version>3.3.1</mybatis.version>
         <mybatis.spring.version>1.2.4</mybatis.spring.version>
         <pagehelper.version>4.1.1</pagehelper.version>
+        <mybatis-generator-core.version>1.3.2</mybatis-generator-core.version>
+        <mysql-connector-java.version>5.1.30</mysql-connector-java.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <com.alibaba.fastjson.version>1.2.33</com.alibaba.fastjson.version>
+        <com.google.guava.guava.version>20.0</com.google.guava.guava.version>
+        <io.springfox.springfox-swagger-ui.version>2.7.0</io.springfox.springfox-swagger-ui.version>
+        <io.jsonwebtoken.jwt.version>0.6.0</io.jsonwebtoken.jwt.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <io.springfox.springfox-swagger.version>2.9.2</io.springfox.springfox-swagger.version>
     </properties>
     <dependencies>
         <dependency>
@@ -98,7 +110,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.30</version>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
 
 
@@ -118,7 +130,7 @@
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.2</version>
+            <version>${mybatis-generator-core.version}</version>
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
@@ -139,41 +151,41 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.33</version>
+            <version>${com.alibaba.fastjson.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.6.1</version>
+            <version>${io.springfox.springfox-swagger.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.6.1</version>
+            <version>${io.springfox.springfox-swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${javax.servlet-api.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>20.0</version>
+            <version>${com.google.guava.guava.version}</version>
         </dependency>
 
         <!-- jwt -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.6.0</version>
+            <version>${io.jsonwebtoken.jwt.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.wxiaoq</groupId>
@@ -195,7 +207,7 @@
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.2</version>
+                <version>${mybatis-generator-core.version}</version>
                 <configuration>
                     <configurationFile>${basedir}/src/main/resources/builder/generatorConfig.xml</configurationFile>
                     <overwrite>true</overwrite>
@@ -205,7 +217,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.30</version>
+                        <version>${mysql-connector-java.version}</version>
                         <scope>runtime</scope>
                     </dependency>
                     <dependency>

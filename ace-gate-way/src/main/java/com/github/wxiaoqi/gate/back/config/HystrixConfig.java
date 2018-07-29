@@ -1,17 +1,14 @@
 package com.github.wxiaoqi.gate.back.config;
 
 /**
- * ${DESCRIPTION}
+ * Hystrix配置
  *
  * @author wanghaobin
  * @create 2017-06-01 8:12
  */
 
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 
 //@Configuration
 public class HystrixConfig {

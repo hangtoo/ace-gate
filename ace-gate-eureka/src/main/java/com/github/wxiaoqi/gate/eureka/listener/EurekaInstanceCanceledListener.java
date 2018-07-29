@@ -7,6 +7,8 @@ import com.netflix.eureka.EurekaServerContextHolder;
 import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.eureka.server.event.EurekaInstanceCanceledEvent;
 import org.springframework.cloud.netflix.eureka.server.event.EurekaInstanceRegisteredEvent;
 import org.springframework.context.ApplicationEvent;
@@ -26,6 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @EnableScheduling
 public class EurekaInstanceCanceledListener implements ApplicationListener {
+    private static Logger logger = LoggerFactory.getLogger(EurekaInstanceCanceledListener.class);
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         // 服务挂掉自动通知
@@ -62,7 +65,7 @@ public class EurekaInstanceCanceledListener implements ApplicationListener {
             LostInstance lostInstance = lostInstanceMap.getValue();
             DateTime dt = new DateTime(lostInstance.getLostTime());
             if(dt.plusSeconds(defalutNotifyInterval[lostInstance.getCurrentInterval()]).isBeforeNow()){
-                log.info("服务：{}已失效，IP为：{}，失效时间为：{}，请马上重启服务！",new Object[]{lostInstance.getInstanceId(),lostInstance.getIPAddr(),dt.toString()});
+                logger.info("服务：{}已失效，IP为：{}，失效时间为：{}，请马上重启服务！",new Object[]{lostInstance.getInstanceId(),lostInstance.getIPAddr(),dt.toString()});
                 // TODO: 2017/7/8 增加消息提醒
             }
         });

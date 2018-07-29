@@ -1,7 +1,7 @@
 package com.github.wxiaoqi.gate.back.constant;
 
 /**
- * ${DESCRIPTION}
+ * 常量定义
  *
  * @author wanghaobin
  * @create 2017-06-17 14:41

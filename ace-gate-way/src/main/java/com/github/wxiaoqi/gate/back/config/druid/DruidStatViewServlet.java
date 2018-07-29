@@ -6,8 +6,9 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 /**
- * ${DESCRIPTION}
- *
+ * 展示Druid的统计信息
+ *      提供监控信息展示的html页面
+ *      提供监控信息的JSON API
  * @author wanghaobin
  * @create 2017-06-20 21:34
  */

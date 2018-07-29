@@ -5,6 +5,11 @@ import com.github.wxiaoqi.gate.back.constant.CommonConstant;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * 角色组管理
+ * 群或组，拥有一定数量权限的集合，亦可以是权限的载体
+ * 子类：User（用户）、Role（角色）、Position（岗位）、Unit（部门），通过用户的特定构成，形成不同业务场景的群或组，而通过对群或组的父类授权，完成了用户的权限获取。
+ */
 @Table(name = "base_group")
 public class Group {
     @Id

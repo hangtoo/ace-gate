@@ -14,6 +14,8 @@ import com.github.wxiaoqi.gate.back.entity.User;
 import com.github.wxiaoqi.gate.back.vo.MenuTree;
 import com.github.wxiaoqi.gate.common.util.TreeUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +43,13 @@ public class UserService {
     @Autowired
     private ElementBiz elementBiz;
 
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    /**
+     * 根据用户账号获取用户
+     * @param username
+     * @return
+     */
     @RequestMapping(value = "/user/username/{username}",method = RequestMethod.GET, produces="application/json")
     public  @ResponseBody
     UserInfo getUserByUsername(@PathVariable("username")String username) {
@@ -51,6 +60,11 @@ public class UserService {
         return info;
     }
 
+    /**
+     * 根据用户账号获取权限
+     * @param username
+     * @return
+     */
     @RequestMapping(value = "/user/un/{username}/permissions", method = RequestMethod.GET)
     public @ResponseBody List<PermissionInfo> getPermissionByUsername(@PathVariable("username") String username){
         User user = userBiz.getUserByUsername(username);
@@ -93,20 +107,39 @@ public class UserService {
         int userId = userBiz.getUserByUsername(username).getId();
         return JSONObject.toJSONString(menuBiz.getUserAuthoritySystemByUserId(userId));
     }
+
+    /**
+     * 通过用户账号获取菜单
+     * @param username
+     * @param parentId
+     * @return
+     */
     @RequestMapping(value = "/user/un/{username}/menu/parent/{parentId}", method = RequestMethod.GET)
     @ResponseBody
     public String getMenusByUsername(@PathVariable("username") String username,@PathVariable("parentId")Integer parentId){
         int userId = userBiz.getUserByUsername(username).getId();
         try {
             if (parentId == null||parentId<0) {
-                parentId = menuBiz.getUserAuthoritySystemByUserId(userId).get(0).getId();
+                List<Menu> list=menuBiz.getUserAuthoritySystemByUserId(userId);
+                if(list.size()>0) {
+                    parentId = menuBiz.getUserAuthoritySystemByUserId(userId).get(0).getId();
+                }else{
+                    return JSONObject.toJSONString(new ArrayList<MenuTree>());
+                }
             }
         } catch (Exception e) {
+            logger.error("通过用户账号获取菜单异常",e);
             return JSONObject.toJSONString(new ArrayList<MenuTree>());
         }
         return JSONObject.toJSONString(getMenuTree(menuBiz.getUserAuthorityMenuByUserId(userId), parentId));
     }
 
+    /**
+     * 获取菜单树
+     * @param menus
+     * @param root
+     * @return
+     */
     private List<MenuTree> getMenuTree(List<Menu> menus,int root) {
         List<MenuTree> trees = new ArrayList<MenuTree>();
         MenuTree node = null;

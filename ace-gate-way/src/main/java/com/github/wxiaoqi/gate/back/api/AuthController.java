@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 网关中心鉴权
+ */
 @RestController
 @RequestMapping("api/authen")
 public class AuthController {
@@ -23,6 +26,15 @@ public class AuthController {
 
     @Autowired
     private AuthBiz authService;
+
+    /**
+     * 201 Created
+       401 Unauthorized
+       403 Forbidden
+       404  Not Found
+     * @param authenticationRequest
+     * @return
+     */
     @ApiOperation(value="获取有效时长的token", notes="传入网关中心发布的客户端clientId和secret")
     @RequestMapping(value = "auth", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(

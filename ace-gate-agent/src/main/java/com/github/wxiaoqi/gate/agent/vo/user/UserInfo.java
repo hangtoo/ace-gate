@@ -3,16 +3,31 @@ package com.github.wxiaoqi.gate.agent.vo.user;
 import java.io.Serializable;
 
 /**
- * ${DESCRIPTION}
+ * 用户
  *
  * @author wanghaobin
  * @create 2017-06-21 8:12
  */
 public class UserInfo implements Serializable{
+    /**
+     * 编号
+     */
     public String id;
+    /**
+     * 账号
+     */
     public String username;
+    /**
+     * 密码
+     */
     public String password;
+    /**
+     * 名称
+     */
     public String name;
+    /**
+     * 描述
+     */
     private String description;
 
     public String getId() {

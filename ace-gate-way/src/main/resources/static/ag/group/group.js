@@ -348,6 +348,9 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
             });
         }
     });
+    /**
+     * 分配权限
+     */
     $('#btn_resourceManager').on("click", function () {
         if (group.select(layerTips)) {
             var id = group.currentItem.id;
@@ -369,7 +372,6 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
                     full: function (elem) {
                         var win = window.top === window.self ? window : parent.window;
                         $(win).on('resize', function () {
-                            debugger;
                             var $this = $(this);
                             elem.width($this.width()).height($this.height()).css({
                                 top: 0,
@@ -441,6 +443,10 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
                                     $('.check-node')
                                         .prop('disabled', !(checkableNodes.length >= 1));
                                 });
+
+                                /**
+                                 * 查询菜单权限
+                                 */
                                 $.get(group.baseUrl + '/' + id + "/authority/menu", null, function (data) {
                                     if (data.rel) {
                                         var nodes = $('#menuTreeview').treeview('getUnselected', 0);
@@ -465,6 +471,9 @@ layui.use(['form', 'layedit', 'laydate', 'element'], function () {
                                     menuList.push(nodeMap[parseInt($(this).attr('data-nodeid'))]);
                                 }
                             });
+                            /**
+                             * 修改菜单权限
+                             */
                             $.ajax({
                                 url: group.baseUrl + '/' + id + "/authority/menu",
                                 type: 'POST',

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * ${DESCRIPTION}
+ * 客户端信息
  *
  * @author wanghaobin
  * @create 2017-07-02 19:11

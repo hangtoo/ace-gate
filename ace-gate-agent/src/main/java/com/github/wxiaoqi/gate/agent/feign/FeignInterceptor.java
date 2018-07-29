@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * Feign拦截器
+ * 自动申请服务token、传递当前上下文
  * Created by ace on 2017/7/5.
  */
 public class FeignInterceptor implements RequestInterceptor {
@@ -40,6 +42,14 @@ public class FeignInterceptor implements RequestInterceptor {
         requestTemplate.header(authHeader,tokenHead+" "+token);
     }
 
+    /**
+     * 设置token
+     * @param clientId
+     * @param secret
+     * @return
+     * @throws AuthenticationServerErrorException
+     * @throws AuthenticationVerifyFailException
+     */
     private static String getToken(String clientId,String secret) throws AuthenticationServerErrorException, AuthenticationVerifyFailException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("clientId",clientId);
@@ -50,10 +60,13 @@ public class FeignInterceptor implements RequestInterceptor {
            String token = JSON.parseObject(response.body()).getString("token");
             //容错
             if (StringUtils.isBlank(token)) {
+                // 权限服务异常
                 throw new AuthenticationServerErrorException(JSON.toJSONString(response));
             }
             return token;
+        // HTTP 401:未授权
         } else if (response.statusCode() == 401) {
+            // 权限验证失败
             throw new AuthenticationVerifyFailException(JSON.toJSONString(response));
         } else {
             throw new AuthenticationServerErrorException(JSON.toJSONString(response));
