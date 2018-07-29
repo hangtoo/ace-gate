@@ -199,6 +199,8 @@ access-token:ApiGateToken eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnYXRlLWRlbW8tY2xpZW50I
  6. 优化前台的按钮风格和前台错误页面跳转(如未授权)
  7. 实现链路跟踪(springCloud sleuth+MQ+ElasticSearch)
  8. 实现数据权限动态
+ 9. IP黑名单限制
+    https://blog.csdn.net/u010889990/article/details/78763941
     
 # 欢迎交流
 ![img](http://ofsc32t59.bkt.clouddn.com/17-06-16/1497595760484.jpg)
