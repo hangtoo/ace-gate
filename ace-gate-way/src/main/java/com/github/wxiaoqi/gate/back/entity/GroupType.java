@@ -18,6 +18,9 @@ public class GroupType {
      */
     private String name;
 
+    /**
+     * 描述
+     */
     private String description;
 
     @Column(name = "crt_time")

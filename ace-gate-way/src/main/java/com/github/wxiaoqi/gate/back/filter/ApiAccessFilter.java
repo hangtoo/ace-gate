@@ -46,6 +46,7 @@ public class ApiAccessFilter extends ZuulFilter {
      */
     @Value("${zuul.prefix}")
     private String prefix;
+
     public ApiAccessFilter() {
         super();
     }
@@ -75,9 +76,9 @@ public class ApiAccessFilter extends ZuulFilter {
         String requestUri = request.getRequestURI();
         // 请求方式
         final String method = request.getMethod();
-        log.debug("IP：{}，访问资源：{}，请求方式：{}", ClientUtil.getClientIp(request),requestUri,method);
-        requestUri = requestUri.substring(prefix.length()+1);
-        final String  finalRequestUri = requestUri.substring(requestUri.indexOf("/"));
+        log.debug("IP：{}，访问资源：{}，请求方式：{}", ClientUtil.getClientIp(request), requestUri, method);
+        requestUri = requestUri.substring(prefix.length() + 1);
+        final String finalRequestUri = requestUri.substring(requestUri.indexOf("/"));
         List<PermissionInfo> serviceInfo = gateService.getGateServiceInfo();
         // 判断资源是否启用权限约束
         Collection<PermissionInfo> result = Collections2.filter(serviceInfo, new Predicate<PermissionInfo>() {
@@ -90,16 +91,15 @@ public class ApiAccessFilter extends ZuulFilter {
                         && method.equals(permissionInfo.getMethod());
             }
         });
-        if(result.size()>0){
+        if (result.size() > 0) {
             String token = request.getHeader(tokenHead);
             // 校验是否授权
-            if(!authService.validate(token,finalRequestUri+":"+method)){
-                setFailedRequest("Unauthorized",401);
+            if (!authService.validate(token, finalRequestUri + ":" + method)) {
+                setFailedRequest("Unauthorized", 401);
             }
         }
         return null;
     }
-
 
 
     /**

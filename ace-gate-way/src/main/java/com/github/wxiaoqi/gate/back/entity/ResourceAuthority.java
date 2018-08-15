@@ -3,20 +3,35 @@ package com.github.wxiaoqi.gate.back.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * 资源权限
+ */
 @Table(name = "base_resource_authority")
 public class ResourceAuthority {
     @Id
     private Integer id;
 
+    /**
+     * 权限id
+     */
     @Column(name = "authority_id")
     private String authorityId;
 
+    /**
+     * 权限类型
+     */
     @Column(name = "authority_type")
     private String authorityType;
 
+    /**
+     * 资源id
+     */
     @Column(name = "resource_id")
     private String resourceId;
 
+    /**
+     * 资源类型
+     */
     @Column(name = "resource_type")
     private String resourceType;
 

@@ -14,7 +14,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 /**
- * ${DESCRIPTION}
+ * 用户
  *
  * @author wanghaobin
  * @create 2017-06-08 11:51

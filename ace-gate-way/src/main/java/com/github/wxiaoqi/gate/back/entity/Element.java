@@ -3,43 +3,91 @@ package com.github.wxiaoqi.gate.back.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * 元素
+ */
 @Table(name = "base_element")
 public class Element {
     @Id
     private Integer id;
 
+    /**
+     * userManager:btn_add
+     */
     private String code;
 
+    /**
+     * 类型
+     * button/uri
+     */
     private String type;
 
+    /**
+     * 名称
+     */
     private String name;
 
+    /**
+     * 地址
+     * /user
+     */
     private String uri;
 
+    /**
+     * 菜单id
+     */
     @Column(name = "menu_id")
     private String menuId;
 
+    /**
+     * 父节点id
+     */
     @Column(name = "parent_id")
     private String parentId;
 
+    /**
+     * 地址
+     */
     private String path;
 
+    /**
+     * 请求方式
+     * POST/DELETE/GET/PUT
+     */
     private String method;
 
+    /**
+     * 描述
+     */
     private String description;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "crt_time")
     private Date crtTime;
 
+    /**
+     * 创建用户
+     */
     @Column(name = "crt_user")
     private String crtUser;
 
+    /**
+     * 创建名称
+     */
     @Column(name = "crt_name")
     private String crtName;
 
+    /**
+     * 创建地址
+     */
     @Column(name = "crt_host")
     private String crtHost;
 
+    /**
+     * 扩展字段1
+     */
     private String attr1;
 
     private String attr2;

@@ -131,6 +131,8 @@ ouath2单点登录
 JWT认证协议
 	授权服务器将用户信息和授权范围序列化后放入一个JSON字符串，然后使用Base64进行编码，最终在授权服务器用私钥对这个字符串进行签名，得到一个JSON Web Token
 
+	https://www.cnblogs.com/huyunfan/p/7850680.html
+
 	组成:
 	1>.Header头部:token类型和加密算法
 		{	

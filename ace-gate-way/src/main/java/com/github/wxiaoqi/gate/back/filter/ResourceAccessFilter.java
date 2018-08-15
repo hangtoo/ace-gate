@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * Resources权限下有资源，资源的来源有：Menu（菜单）、Button（动作权限）、页面元素（按钮、tab等）、数据权限等
  * Created by ace on 2017/7/8.
  */
-@WebFilter(filterName="resourceAccessFilter",urlPatterns="/*")
+@WebFilter(filterName = "resourceAccessFilter", urlPatterns = "/*")
 @Slf4j
 public class ResourceAccessFilter implements Filter {
     @Autowired
@@ -45,6 +45,7 @@ public class ResourceAccessFilter implements Filter {
 
     /**
      * 读取权限
+     *
      * @param request
      * @param username
      * @return
@@ -62,12 +63,13 @@ public class ResourceAccessFilter implements Filter {
 
     /**
      * 权限校验
+     *
      * @param requestUri
      * @param method
      */
-    private boolean checkAllow(final String requestUri, final String method , HttpServletRequest request, String username) {
+    private boolean checkAllow(final String requestUri, final String method, HttpServletRequest request, String username) {
         log.debug("uri：" + requestUri + "----method：" + method);
-        List<PermissionInfo> permissionInfos = getPermissionInfos(request, username) ;
+        List<PermissionInfo> permissionInfos = getPermissionInfos(request, username);
         Collection<PermissionInfo> result =
                 Collections2.filter(permissionInfos, new Predicate<PermissionInfo>() {
                     @Override
@@ -81,10 +83,10 @@ public class ResourceAccessFilter implements Filter {
                 });
         if (result.size() <= 0) {
             return false;
-        } else{
-            PermissionInfo[] pms =  result.toArray(new PermissionInfo[]{});
+        } else {
+            PermissionInfo[] pms = result.toArray(new PermissionInfo[]{});
             PermissionInfo pm = pms[0];
-            if(!method.equals("GET")){
+            if (!method.equals("GET")) {
                 setCurrentUserInfoAndLog(request, username, pm);
             }
             return true;
@@ -93,16 +95,17 @@ public class ResourceAccessFilter implements Filter {
 
     private void setCurrentUserInfoAndLog(HttpServletRequest request, String username, PermissionInfo pm) {
         UserInfo info = userService.getUserByUsername(username);
-        String host =  ClientUtil.getClientIp(request);
+        String host = ClientUtil.getClientIp(request);
         request.setAttribute("userId", info.getId());
         request.setAttribute("userName", URLEncoder.encode(info.getName()));
         request.setAttribute("userHost", ClientUtil.getClientIp(request));
-        LogInfo logInfo = new LogInfo(pm.getMenu(),pm.getName(),pm.getUri(),new Date(),info.getId(),info.getName(),host);
+        LogInfo logInfo = new LogInfo(pm.getMenu(), pm.getName(), pm.getUri(), new Date(), info.getId(), info.getName(), host);
         DBLog.getInstance().setLogService(logService).offerQueue(logInfo);
     }
 
     /**
      * 是否包含某种特征
+     *
      * @param requestUri
      * @return
      */
@@ -117,6 +120,7 @@ public class ResourceAccessFilter implements Filter {
 
     /**
      * URI是否以什么打头
+     *
      * @param requestUri
      * @return
      */
@@ -136,17 +140,16 @@ public class ResourceAccessFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletResponse response = (HttpServletResponse)servletResponse;
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
         final String requestUri = request.getRequestURI();
         // 不进行拦截的地址
         if (isStartWith(requestUri) || isContains(requestUri)) {
             filterChain.doFilter(request, response);
             return;
-        }
-        else if(SecurityContextHolder.getContext().getAuthentication()!= null&&!(SecurityContextHolder.getContext()
+        } else if (SecurityContextHolder.getContext().getAuthentication() != null && !(SecurityContextHolder.getContext()
                 .getAuthentication()
-                .getPrincipal() instanceof String)){
+                .getPrincipal() instanceof String)) {
 
             final String method = request.getMethod();
             try {
@@ -154,12 +157,12 @@ public class ResourceAccessFilter implements Filter {
                         .getAuthentication()
                         .getPrincipal();
                 String username = userDetails.getUsername();
-                request.getSession().setAttribute("user",userDetails);
+                request.getSession().setAttribute("user", userDetails);
                 if (!checkAllow(requestUri, method, request, username)) {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized");
-                    return ;
+                    return;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 filterChain.doFilter(request, response);
             }
         }

@@ -16,12 +16,12 @@ spring:
         cache: false
     redis:
         database: 1
-        host: 192.168.124.128
+        host: 192.168.109.128
         pool:
             max-active: 20
     datasource:
         name: test
-        url: jdbc:mysql://192.168.124.128:3306/ag_gate_way?useUnicode=true&characterEncoding=UTF8
+        url: jdbc:mysql://192.168.109.128:3306/ag_gate_way?useUnicode=true&characterEncoding=UTF8
         username: root
         password: 123456
         # 使用druid数据源

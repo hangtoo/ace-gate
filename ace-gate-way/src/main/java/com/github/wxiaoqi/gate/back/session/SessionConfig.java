@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 
 /**
- * ${DESCRIPTION}
+ * session配置
  *
  * @author wanghaobin
  * @create 2017-06-23 8:33

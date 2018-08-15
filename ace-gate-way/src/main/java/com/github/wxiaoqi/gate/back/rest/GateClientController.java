@@ -22,37 +22,37 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("client")
-public class GateClientController extends BaseController<GateClientBiz,GateClient> {
-    @RequestMapping(value = "/page",method = RequestMethod.GET)
+public class GateClientController extends BaseController<GateClientBiz, GateClient> {
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
     @ResponseBody
-    public TableResultResponse<GateClient> page(@RequestParam(defaultValue = "10") int limit, @RequestParam(defaultValue = "1")int offset, String name){
+    public TableResultResponse<GateClient> page(@RequestParam(defaultValue = "10") int limit, @RequestParam(defaultValue = "1") int offset, String name) {
         Example example = new Example(GateClient.class);
-        if(StringUtils.isNotBlank(name)) {
+        if (StringUtils.isNotBlank(name)) {
             example.createCriteria().andLike("name", "%" + name + "%");
             example.or().andLike("code", "%" + name + "%");
         }
         int count = baseBiz.selectCountByExample(example);
         PageHelper.startPage(offset, limit);
-        return new TableResultResponse<GateClient>(count,baseBiz.selectByExample(example));
+        return new TableResultResponse<GateClient>(count, baseBiz.selectByExample(example));
     }
 
-    @RequestMapping(value = "/{id}/lock",method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}/lock", method = RequestMethod.PUT)
     @ResponseBody
-    public ObjectRestResponse<GateClient> updateLock(GateClient entity){
+    public ObjectRestResponse<GateClient> updateLock(GateClient entity) {
         baseBiz.updateById(entity);
         return new ObjectRestResponse<GateClient>().rel(true);
     }
 
     @RequestMapping(value = "/{id}/service", method = RequestMethod.PUT)
     @ResponseBody
-    public ObjectRestResponse modifiyServices(@PathVariable int id,String services){
+    public ObjectRestResponse modifiyServices(@PathVariable int id, String services) {
         baseBiz.modifyClientServices(id, services);
         return new ObjectRestResponse().rel(true);
     }
 
     @RequestMapping(value = "/{id}/service", method = RequestMethod.GET)
     @ResponseBody
-    public ObjectRestResponse<List<Element>> getServices(@PathVariable int id){
+    public ObjectRestResponse<List<Element>> getServices(@PathVariable int id) {
         return new ObjectRestResponse<List<Element>>().rel(true).result(baseBiz.getClientServices(id));
     }
 

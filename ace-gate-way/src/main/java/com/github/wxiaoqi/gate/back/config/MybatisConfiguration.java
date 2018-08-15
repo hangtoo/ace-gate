@@ -24,7 +24,7 @@ import java.util.Properties;
 
 /**
  * mybatis 配置数据源类
- * 
+ *
  * @author wanghaobin
  * @date 2016年12月15日
  * @since 1.7
@@ -64,24 +64,24 @@ public class MybatisConfiguration implements EnvironmentAware {
         druidDataSource.setUrl(url);
         druidDataSource.setUsername(userName);
         druidDataSource.setPassword(password);
-        druidDataSource.setDriverClassName(StringUtils.isNotBlank(driveClassName)?driveClassName:"com.mysql.jdbc.Driver");
-        druidDataSource.setMaxActive(StringUtils.isNotBlank(maxActive)? Integer.parseInt(maxActive):10);
-        druidDataSource.setInitialSize(StringUtils.isNotBlank(initialSize)? Integer.parseInt(initialSize):1);
-        druidDataSource.setMaxWait(StringUtils.isNotBlank(maxWait)? Integer.parseInt(maxWait):60000);
-        druidDataSource.setMinIdle(StringUtils.isNotBlank(minIdle)? Integer.parseInt(minIdle):3);
-        druidDataSource.setTimeBetweenEvictionRunsMillis(StringUtils.isNotBlank(timeBetweenEvictionRunsMillis)?
-                Integer.parseInt(timeBetweenEvictionRunsMillis):60000);
-        druidDataSource.setMinEvictableIdleTimeMillis(StringUtils.isNotBlank(minEvictableIdleTimeMillis)?
-                Integer.parseInt(minEvictableIdleTimeMillis):300000);
-        druidDataSource.setValidationQuery(StringUtils.isNotBlank(validationQuery)?validationQuery:"select 'x'");
-        druidDataSource.setTestWhileIdle(StringUtils.isNotBlank(testWhileIdle)? Boolean.parseBoolean(testWhileIdle):true);
-        druidDataSource.setTestOnBorrow(StringUtils.isNotBlank(testOnBorrow)? Boolean.parseBoolean(testOnBorrow):false);
-        druidDataSource.setTestOnReturn(StringUtils.isNotBlank(testOnReturn)? Boolean.parseBoolean(testOnReturn):false);
-        druidDataSource.setPoolPreparedStatements(StringUtils.isNotBlank(poolPreparedStatements)? Boolean.parseBoolean(poolPreparedStatements):true);
-        druidDataSource.setMaxOpenPreparedStatements(StringUtils.isNotBlank(maxOpenPreparedStatements)? Integer.parseInt(maxOpenPreparedStatements):20);
+        druidDataSource.setDriverClassName(StringUtils.isNotBlank(driveClassName) ? driveClassName : "com.mysql.jdbc.Driver");
+        druidDataSource.setMaxActive(StringUtils.isNotBlank(maxActive) ? Integer.parseInt(maxActive) : 10);
+        druidDataSource.setInitialSize(StringUtils.isNotBlank(initialSize) ? Integer.parseInt(initialSize) : 1);
+        druidDataSource.setMaxWait(StringUtils.isNotBlank(maxWait) ? Integer.parseInt(maxWait) : 60000);
+        druidDataSource.setMinIdle(StringUtils.isNotBlank(minIdle) ? Integer.parseInt(minIdle) : 3);
+        druidDataSource.setTimeBetweenEvictionRunsMillis(StringUtils.isNotBlank(timeBetweenEvictionRunsMillis) ?
+                Integer.parseInt(timeBetweenEvictionRunsMillis) : 60000);
+        druidDataSource.setMinEvictableIdleTimeMillis(StringUtils.isNotBlank(minEvictableIdleTimeMillis) ?
+                Integer.parseInt(minEvictableIdleTimeMillis) : 300000);
+        druidDataSource.setValidationQuery(StringUtils.isNotBlank(validationQuery) ? validationQuery : "select 'x'");
+        druidDataSource.setTestWhileIdle(StringUtils.isNotBlank(testWhileIdle) ? Boolean.parseBoolean(testWhileIdle) : true);
+        druidDataSource.setTestOnBorrow(StringUtils.isNotBlank(testOnBorrow) ? Boolean.parseBoolean(testOnBorrow) : false);
+        druidDataSource.setTestOnReturn(StringUtils.isNotBlank(testOnReturn) ? Boolean.parseBoolean(testOnReturn) : false);
+        druidDataSource.setPoolPreparedStatements(StringUtils.isNotBlank(poolPreparedStatements) ? Boolean.parseBoolean(poolPreparedStatements) : true);
+        druidDataSource.setMaxOpenPreparedStatements(StringUtils.isNotBlank(maxOpenPreparedStatements) ? Integer.parseInt(maxOpenPreparedStatements) : 20);
 
         try {
-            druidDataSource.setFilters(StringUtils.isNotBlank(filters)?filters:"stat, wall");
+            druidDataSource.setFilters(StringUtils.isNotBlank(filters) ? filters : "stat, wall");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,7 +92,7 @@ public class MybatisConfiguration implements EnvironmentAware {
     public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        if(StringUtils.isNotBlank(typeAliasesPackage)){
+        if (StringUtils.isNotBlank(typeAliasesPackage)) {
             bean.setTypeAliasesPackage(typeAliasesPackage);
         }
         //分页插件
@@ -105,7 +105,7 @@ public class MybatisConfiguration implements EnvironmentAware {
         pageHelper.setProperties(properties);
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Interceptor[] plugins =  new Interceptor[]{pageHelper};
+        Interceptor[] plugins = new Interceptor[]{pageHelper};
         bean.setPlugins(plugins);
         try {
             bean.setMapperLocations(resolver.getResources(xmlLocation));
@@ -124,7 +124,7 @@ public class MybatisConfiguration implements EnvironmentAware {
     public void setEnvironment(Environment environment) {
         this.propertyResolver = new RelaxedPropertyResolver(environment, null);
         this.url = propertyResolver.getProperty("spring.datasource.url");
-        this.userName= propertyResolver.getProperty("spring.datasource.username");
+        this.userName = propertyResolver.getProperty("spring.datasource.username");
         this.password = propertyResolver.getProperty("spring.datasource.password");
         this.driveClassName = propertyResolver.getProperty("spring.datasource.driver-class-name");
         this.filters = propertyResolver.getProperty("spring.datasource.filters");

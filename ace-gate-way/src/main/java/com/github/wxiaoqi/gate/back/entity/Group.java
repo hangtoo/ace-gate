@@ -26,6 +26,9 @@ public class Group {
 
     private String type;
 
+    /**
+     * 组类型
+     */
     @Column(name = "group_type")
     private Integer groupType = CommonConstant.DEFAULT_GROUP_TYPE;
 

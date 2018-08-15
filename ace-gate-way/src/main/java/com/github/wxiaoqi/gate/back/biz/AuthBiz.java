@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
-public class AuthBiz{
+public class AuthBiz {
 
     private ApiTokenUtil jwtTokenUtil;
     private GateService gateService;
@@ -34,36 +34,61 @@ public class AuthBiz{
     }
 
 
+    /**
+     * 登录
+     * @param clientId
+     * @param secret
+     * @return
+     */
     public String login(String clientId, String secret) {
         ClientInfo info = gateService.getGateClientInfo(clientId);
         String token = "";
-        if(encoder.matches(secret,info.getSecret())) {
-           token = jwtTokenUtil.generateToken(info);
+        // matches(CharSequence rawPassword, String encodedPassword)
+        // 判断密码是否相同
+        if (encoder.matches(secret, info.getSecret())) {
+            token = jwtTokenUtil.generateToken(info);
         }
         return token;
     }
 
+    /**
+     * 刷新
+     * @param oldToken
+     * @return
+     */
     public String refresh(String oldToken) {
         final String token = oldToken.substring(tokenHead.length());
         String clientId = jwtTokenUtil.getClientIdFromToken(token);
         ClientInfo info = gateService.getGateClientInfo(clientId);
-        if (jwtTokenUtil.canTokenBeRefreshed(token,info.getUpdTime())){
+        if (jwtTokenUtil.canTokenBeRefreshed(token, info.getUpdTime())) {
             return jwtTokenUtil.refreshToken(token);
         }
         return null;
     }
 
-    public Boolean validate(String oldToken,String resource) {
-        if(!oldToken.startsWith(tokenHead))
+    /**
+     * 验证
+     * @param oldToken
+     * @param resource
+     * @return
+     */
+    public Boolean validate(String oldToken, String resource) {
+        if (!oldToken.startsWith(tokenHead))
             return false;
         final String token = oldToken.substring(tokenHead.length());
         String clientId = jwtTokenUtil.getClientIdFromToken(token);
         ClientInfo info = gateService.getGateClientInfo(clientId);
-        return info.getCode().equals(clientId)&&!jwtTokenUtil.isTokenExpired(token)&&validateResource(clientId,resource);
+        return info.getCode().equals(clientId) && !jwtTokenUtil.isTokenExpired(token) && validateResource(clientId, resource);
     }
 
-    public Boolean validateResource(String clientId, String resource){
-        String [] res = resource.split(":");
+    /**
+     * 验证是否此资源的权限
+     * @param clientId
+     * @param resource
+     * @return
+     */
+    public Boolean validateResource(String clientId, String resource) {
+        String[] res = resource.split(":");
         final String requestUri = res[0];
         final String method = res[1];
         List<PermissionInfo> clientPermissionInfo = gateService.getGateServiceInfo(clientId);

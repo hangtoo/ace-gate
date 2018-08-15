@@ -1,27 +1,51 @@
 package com.github.wxiaoqi.gate.back.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
+/**
+ * 日志
+ */
 @Table(name = "gate_log")
 public class GateLog {
     @Id
     private Integer id;
 
+    /**
+     * 操作菜单
+     * 用户管理
+     */
     private String menu;
 
+    /**
+     * 操作
+     * 编辑
+     */
     private String opt;
 
+    /**
+     * 操作地址
+     * /back/user
+     */
     private String uri;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "crt_time")
     private Date crtTime;
 
+    /**
+     * 创建用户
+     */
     @Column(name = "crt_user")
     private String crtUser;
 
+    /**
+     * 创建名称
+     */
     @Column(name = "crt_name")
     private String crtName;
 

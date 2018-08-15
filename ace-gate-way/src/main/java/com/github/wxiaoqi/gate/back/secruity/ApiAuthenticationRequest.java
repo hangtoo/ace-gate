@@ -18,7 +18,6 @@ public class ApiAuthenticationRequest implements Serializable {
     }
 
 
-
     public ApiAuthenticationRequest() {
         super();
     }

@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
+/**
+ * 网关 客户端
+ */
 @Table(name = "gate_client")
 public class GateClient {
     @Id
@@ -14,12 +17,24 @@ public class GateClient {
 
     private String code;
 
+    /**
+     * 密钥
+     */
     private String secret;
 
+    /**
+     * 名称
+     */
     private String name;
 
+    /**
+     * 是否锁
+     */
     private String locked;
 
+    /**
+     * 描述
+     */
     private String description;
 
     @Column(name = "crt_time")

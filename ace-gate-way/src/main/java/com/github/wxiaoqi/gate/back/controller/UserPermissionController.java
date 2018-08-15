@@ -30,31 +30,32 @@ public class UserPermissionController {
     /**
      * 系统
      * 权限管理系统/内容管理系统
+     *
      * @return
      */
-    @RequestMapping(value = "/user/system",method = RequestMethod.GET)
+    @RequestMapping(value = "/user/system", method = RequestMethod.GET)
     @ResponseBody
-    public String getUserSystem(){
-       return userService.getSystemsByUsername(getCurrentUserName());
+    public String getUserSystem() {
+        return userService.getSystemsByUsername(getCurrentUserName());
     }
-
 
 
     /**
      * 获取用户的菜单
      */
-    @ApiOperation(value="获取用户的菜单", notes="parentId父节点id")
-    @RequestMapping(value = "/user/menu",method = RequestMethod.GET)
+    @ApiOperation(value = "获取用户的菜单", notes = "parentId父节点id")
+    @RequestMapping(value = "/user/menu", method = RequestMethod.GET)
     @ResponseBody
-    public String getUserMenu(@RequestParam(defaultValue = "-1") Integer parentId){
-        return userService.getMenusByUsername(getCurrentUserName(),parentId);
+    public String getUserMenu(@RequestParam(defaultValue = "-1") Integer parentId) {
+        return userService.getMenusByUsername(getCurrentUserName(), parentId);
     }
 
     /**
      * 获取当前登录用户的账号
+     *
      * @return
      */
-    public String getCurrentUserName(){
+    public String getCurrentUserName() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();

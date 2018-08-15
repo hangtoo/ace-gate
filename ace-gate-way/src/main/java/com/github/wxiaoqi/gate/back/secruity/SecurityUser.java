@@ -27,7 +27,17 @@ public class SecurityUser extends User {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
-    public SecurityUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,String name) {
+    /**
+     * @param username
+     * @param password
+     * @param enabled               是否可用
+     * @param accountNonExpired     是否过期
+     * @param credentialsNonExpired 证书不过期为true
+     * @param accountNonLocked      账户未锁定为true
+     * @param authorities
+     * @param name
+     */
+    public SecurityUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, String name) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.name = name;
     }

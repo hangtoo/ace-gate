@@ -7,7 +7,13 @@ package com.github.wxiaoqi.gate.back.constant;
  * @create 2017-06-17 14:41
  */
 public class CommonConstant {
+    /**
+     * 菜单的根节点id
+     */
     public final static int ROOT = -1;
+    /**
+     * 默认组类型
+     */
     public final static int DEFAULT_GROUP_TYPE = 0;
     /**
      * 权限关联类型

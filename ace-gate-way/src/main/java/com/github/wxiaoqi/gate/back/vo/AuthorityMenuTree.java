@@ -13,7 +13,7 @@ import java.util.List;
  * @author wanghaobin
  * @create 2017-06-19 13:03
  */
-public class AuthorityMenuTree extends TreeNode implements Serializable{
+public class AuthorityMenuTree extends TreeNode implements Serializable {
     String text;
     List<AuthorityMenuTree> nodes = new ArrayList<AuthorityMenuTree>();
     String icon;
@@ -60,7 +60,7 @@ public class AuthorityMenuTree extends TreeNode implements Serializable{
     public void add(TreeNode node) {
         super.add(node);
         AuthorityMenuTree n = new AuthorityMenuTree();
-        BeanUtils.copyProperties(node,n);
+        BeanUtils.copyProperties(node, n);
         nodes.add(n);
     }
 }

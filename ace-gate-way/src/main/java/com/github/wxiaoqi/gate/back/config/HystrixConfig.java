@@ -13,13 +13,13 @@ import org.springframework.boot.context.embedded.ServletRegistrationBean;
 //@Configuration
 public class HystrixConfig {
 
-//    @Bean
-    public HystrixMetricsStreamServlet hystrixMetricsStreamServlet(){
+    //    @Bean
+    public HystrixMetricsStreamServlet hystrixMetricsStreamServlet() {
         return new HystrixMetricsStreamServlet();
     }
 
-//    @Bean
-    public ServletRegistrationBean registration(HystrixMetricsStreamServlet servlet){
+    //    @Bean
+    public ServletRegistrationBean registration(HystrixMetricsStreamServlet servlet) {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean();
         registrationBean.setServlet(servlet);
         registrationBean.setEnabled(true);//是否启用该registrationBean

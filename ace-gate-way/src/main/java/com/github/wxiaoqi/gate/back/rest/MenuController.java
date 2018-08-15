@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ${DESCRIPTION}
+ * 菜单
  *
  * @author wanghaobin
  * @create 2017-06-12 8:49

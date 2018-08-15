@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tk.mybatis.mapper.entity.Example;
 
 /**
- * ${DESCRIPTION}
+ * 日志
  *
  * @author wanghaobin
  * @create 2017-07-01 20:32

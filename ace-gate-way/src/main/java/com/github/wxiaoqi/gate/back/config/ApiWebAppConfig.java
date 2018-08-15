@@ -15,9 +15,10 @@ public class ApiWebAppConfig extends WebMvcConfigurerAdapter {
     private String authHost;
     @Value("${gate.client.authHeader}")
     private String authHeader;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ApiInterceptor(authHost,authHeader)).addPathPatterns("/**");
+        registry.addInterceptor(new ApiInterceptor(authHost, authHeader)).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 }

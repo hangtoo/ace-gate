@@ -3,6 +3,9 @@ package com.github.wxiaoqi.gate.back.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * 用户
+ */
 @Table(name = "base_user")
 public class User {
     @Id
@@ -14,20 +17,43 @@ public class User {
 
     private String name;
 
+    /**
+     * 生日
+     */
     private String birthday;
 
+    /**
+     * 地址
+     */
     private String address;
 
+    /**
+     * 手机号码
+     */
     @Column(name = "mobile_phone")
     private String mobilePhone;
 
+    /**
+     * 电话号码
+     */
     @Column(name = "tel_phone")
     private String telPhone;
 
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 性别
+     * 男/女
+     */
     private String sex;
 
+    /**
+     * 类型
+     * 管理员/测试账户
+     */
     private String type;
 
     private String description;

@@ -24,17 +24,17 @@ import tk.mybatis.mapper.entity.Example;
  */
 @Controller
 @RequestMapping("groupType")
-public class GroupTypeController extends BaseController<GroupTypeBiz,GroupType> {
+public class GroupTypeController extends BaseController<GroupTypeBiz, GroupType> {
 
-    @RequestMapping(value = "/page",method = RequestMethod.GET)
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
     @ResponseBody
-    public TableResultResponse<GroupType> page(int limit, int offset, String name){
+    public TableResultResponse<GroupType> page(int limit, int offset, String name) {
         Example example = new Example(User.class);
-        if(StringUtils.isNotBlank(name))
+        if (StringUtils.isNotBlank(name))
             example.createCriteria().andLike("name", "%" + name + "%");
         int count = baseBiz.selectCountByExample(example);
         PageHelper.startPage(offset, limit);
-        return new TableResultResponse<GroupType>(count,baseBiz.selectByExample(example));
+        return new TableResultResponse<GroupType>(count, baseBiz.selectByExample(example));
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * ${DESCRIPTION}
+ * 往队列中写入数据库日志
  *
  * @author wanghaobin
  * @create 2017-07-01 15:28
@@ -18,6 +18,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Slf4j
 public class DBLog extends Thread {
     private static DBLog dblog = null;
+    // 阻塞队列 capacity:初始容量
     private static BlockingQueue<LogInfo> logInfoQueue = new LinkedBlockingQueue<LogInfo>(1024);
 
     public LogService getLogService() {
@@ -30,6 +31,11 @@ public class DBLog extends Thread {
     }
 
     private LogService logService;
+
+    /**
+     * 单例
+     * @return
+     */
     public static synchronized DBLog getInstance() {
         if (dblog == null) {
             dblog = new DBLog();
@@ -43,6 +49,7 @@ public class DBLog extends Thread {
 
     public void offerQueue(LogInfo logInfo) {
         try {
+            // 将元素设置到队列中去
             logInfoQueue.offer(logInfo);
         } catch (Exception e) {
             log.error("日志写入失败", e);

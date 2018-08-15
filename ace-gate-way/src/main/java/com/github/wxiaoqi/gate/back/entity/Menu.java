@@ -5,6 +5,9 @@ import com.github.wxiaoqi.gate.back.constant.CommonConstant;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * 菜单
+ */
 @Table(name = "base_menu")
 public class Menu {
     @Id
@@ -19,6 +22,9 @@ public class Menu {
 
     private String href;
 
+    /**
+     * 图标名称
+     */
     private String icon;
 
     private String type;

@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SecurityController {
     /**
      * 登录
+     *
      * @return
      */
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
     }
