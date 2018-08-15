@@ -3,8 +3,6 @@ package com.github.wxiaoqi.gate.back.filter;
 import com.github.wxiaoqi.gate.agent.vo.authority.PermissionInfo;
 import com.github.wxiaoqi.gate.back.biz.AuthBiz;
 import com.github.wxiaoqi.gate.back.service.GateService;
-import com.github.wxiaoqi.gate.back.service.LogService;
-import com.github.wxiaoqi.gate.back.service.UserService;
 import com.github.wxiaoqi.gate.common.util.ClientUtil;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -13,7 +11,6 @@ import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;

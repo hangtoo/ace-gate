@@ -24,8 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UserPermissionController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private HttpServletRequest request;
 
     /**
      * 系统
@@ -56,6 +54,8 @@ public class UserPermissionController {
      * @return
      */
     public String getCurrentUserName() {
+        // 通过ThreadLocal来保存和传递用户登录信息
+        // SecurityContextHolder的主要功能是将当前正在执行的thread与SecurityContext关联起来
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();

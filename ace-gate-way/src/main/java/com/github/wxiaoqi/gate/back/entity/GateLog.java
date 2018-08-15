@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * 日志
+ * 操作日志
  */
 @Table(name = "gate_log")
 public class GateLog {
