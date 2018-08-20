@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
  * Created by ace on 2017/7/9.
  */
 @Controller
-//@RequestMapping("")/
+@RequestMapping("")
 public class SaysomethingRest {
     @Autowired
     private LanguageFuture languageFuture;
